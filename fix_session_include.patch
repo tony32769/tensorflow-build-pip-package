@@ -1,0 +1,36 @@
+From eaa9dde98d95f843ad1d3d0f5956693991372e4a Mon Sep 17 00:00:00 2001
+From: MircoT <m.tracolli@gmail.com>
+Date: Thu, 3 Nov 2016 15:38:19 +0100
+Subject: [PATCH] Fix missing session.h in core/public inside python package
+ include folder
+
+---
+ tensorflow/core/BUILD | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/tensorflow/core/BUILD b/tensorflow/core/BUILD
+index 79546cc..7d9e9a2 100644
+--- a/tensorflow/core/BUILD
++++ b/tensorflow/core/BUILD
+@@ -214,6 +214,9 @@ cc_library(
+         "platform/strong_hash.h",
+         "platform/thread_annotations.h",
+         "platform/types.h",
++        "public/version.h",
++        "public/session.h",
++        "public/session_options.h",
+     ],
+     visibility = ["//visibility:public"],
+     deps = [
+@@ -299,6 +302,8 @@ tf_cuda_library(
+         "framework/type_traits.h",
+         "framework/types.h",
+         "public/version.h",
++        "public/session.h",
++        "public/session_options.h",
+         "util/bcast.h",
+         "util/cuda_kernel_helper.h",
+         "util/device_name_utils.h",
+-- 
+2.10.2
+
