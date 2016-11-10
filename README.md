@@ -15,15 +15,17 @@ TensorFlow python package to install, builded from source with bazel.
 Check what will happen:
 
 ```
-git apply --stat fix_session_include.patch
-git apply --check fix_session_include.patch
+$ git apply --stat fix_session_include.patch
+$ git apply --check fix_session_include.patch
 ```
 
 Apply patch:
 
 ```
-git am --signoff < fix_session_include.patch
+$ git am --signoff < fix_session_include.patch
 ```
+
+Note: path is useful also if you need to compile a plugin for TensorFlow under linux.
 
 ## Create the package
 
@@ -31,15 +33,20 @@ Building reference on the (official webpage)[https://www.tensorflow.org/versions
 
 Commands used:
 ```
-bazel build -c opt //tensorflow/tools/pip_package:build_pip_package
+$ bazel build -s --verbose_failures --local_resources 2048,.5,1.0 -c opt //tensorflow/tools/pip_package:build_pip_package
 
 $ bazel-bin/tensorflow/tools/pip_package/build_pip_package $(pwd)/tensorflow_pkg
 ```
 
+Note:
+ * *--verbose_failures*: added just in case of some error during the building.
+ * *--local_resources 2048,.5,1.0*: limits the resource used by the building process.
+ * *-s*: to output all bazel commands.
+
 ## Install the package
 
 ```
-pip install -U tensorflow_pkg/tensorflow-0.11.0rc1-py3-none-any.whl 
+$ pip install -U tensorflow_pkg/tensorflow-0.11.0rc1-py3-none-any.whl 
 ```
 
 ## Python VM
@@ -48,6 +55,31 @@ The VM is managed with *virtualenvwrapper* but was created with the following co
 directly inside *.virtualenvs* folder:
 
 ```
-pyvenv TensorFlow
+$ pyvenv TensorFlow
 ```
 
+## Build a new OP with source
+
+Copy your C/C++ code inside the folder `tensorflow/core/user_ops`. If the file added is `example.cpp` you have
+to add in the same folder a file named **BUILD** with this snippet of code:
+
+```
+load("//tensorflow:tensorflow.bzl", "tf_custom_op_library")
+
+tf_custom_op_library(
+    name = "example.so",
+    srcs = ["example.cpp"],
+)
+```
+
+Bazel will load all needed dependencies and will compile your *.so* lib.
+
+```
+$ bazel build -s --verbose_failures -c opt //tensorflow/core/user_ops:DifferentialEvolutionOp.so
+```
+
+Copy the library where you want and load it from a Python script.
+
+Note:
+
+ * `error: cannot call constructor ‘tensorflow::TensorShape::TensorShape’ directly [-fpermissive]`: use directly TensorShape -> `TensorShape(...)`
