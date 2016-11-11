@@ -33,6 +33,8 @@ Building reference on the (official webpage)[https://www.tensorflow.org/versions
 
 Commands used:
 ```
+# Configure with default values, no CUDA or OpenCL or Google Cloud
+$ ./configure
 $ bazel build -s --verbose_failures --local_resources 2048,.5,1.0 -c opt //tensorflow/tools/pip_package:build_pip_package
 
 $ bazel-bin/tensorflow/tools/pip_package/build_pip_package $(pwd)/tensorflow_pkg
