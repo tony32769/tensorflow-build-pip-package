@@ -77,7 +77,7 @@ tf_custom_op_library(
 Bazel will load all needed dependencies and will compile your *.so* lib.
 
 ```
-$ bazel build -s --verbose_failures -c opt //tensorflow/core/user_ops:DifferentialEvolutionOp.so
+$ bazel build -s --verbose_failures -c opt //tensorflow/core/user_ops:example.so
 ```
 
 Copy the library where you want and load it from a Python script.
