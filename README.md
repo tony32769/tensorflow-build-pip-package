@@ -85,3 +85,9 @@ Copy the library where you want and load it from a Python script.
 Note:
 
  * `error: cannot call constructor ‘tensorflow::TensorShape::TensorShape’ directly [-fpermissive]`: use directly TensorShape -> `TensorShape(...)`
+
+## Compile Tensorflow CC libs
+
+```bash
+bazel build -c opt //tensorflow:libtensorflow_cc.so
+```
