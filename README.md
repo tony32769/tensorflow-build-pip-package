@@ -46,6 +46,7 @@ Note:
  * *--local_resources 2048,.5,1.0*: limits the resource used by the building process.
  * *-s*: to output all bazel commands.
  * *--config=cuda*: add support for GPU computing with Nvidia CUDA (feature previous enabled with `./configure`)
+ * *--copt=-march=avx*: supported set of instructions for 2500k
 
 ## Install the package
 
