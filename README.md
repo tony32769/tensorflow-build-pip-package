@@ -91,5 +91,5 @@ Note:
 ## Compile Tensorflow CC libs
 
 ```bash
-bazel build -c opt --copt=-march=avx --config=cuda //tensorflow:libtensorflow_cc.so
+bazel build -c opt --config=cuda //tensorflow:libtensorflow_cc.so
 ```
