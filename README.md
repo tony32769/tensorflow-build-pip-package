@@ -35,7 +35,8 @@ Commands used:
 ```
 # Configure with default values, no CUDA or OpenCL or Google Cloud
 $ ./configure
-$ bazel build -s --verbose_failures --local_resources 2048,.5,1.0 -c opt //tensorflow/tools/pip_package:build_pip_package
+$ bazel build -s --verbose_failures --local_resources 2048,.5,1.0 -c opt --copt=-march=avx --copt=-mavx2 --copt=-mfma --config=cuda //tensorflow/tools/pip_package:build_pip_package
+
 
 $ bazel-bin/tensorflow/tools/pip_package/build_pip_package $(pwd)/tensorflow_pkg
 ```
@@ -44,6 +45,7 @@ Note:
  * *--verbose_failures*: added just in case of some error during the building.
  * *--local_resources 2048,.5,1.0*: limits the resource used by the building process.
  * *-s*: to output all bazel commands.
+ * *--config=cuda*: add support for GPU computing with Nvidia CUDA (feature previous enabled with `./configure`)
 
 ## Install the package
 
