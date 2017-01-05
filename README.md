@@ -47,7 +47,7 @@ Note:
  * *-s*: to output all bazel commands.
  * *--config=cuda*: add support for GPU computing with Nvidia CUDA (feature previous enabled with `./configure`)
  * *--copt=-mavx*: supported set of instructions for 2500k
- * *--cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0"*: force the compiler to use the same api of binary package (current version 0.12 is compiled with gcc4, so if you have gcc5 you need this option).
+ * *--cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0"*: force the compiler to use the same ABI of binary package (current version 0.12 is compiled with gcc4, so if you have gcc5 you need this option).
 
 ## Install the package
 
@@ -97,4 +97,4 @@ $ bazel build -c opt --config=cuda --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" //tenso
 ```
 
 Note:
- * *--cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0"*: force the compiler to use the same api of binary package.
+ * *--cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0"*: force the compiler to use the same ABI of binary package.
