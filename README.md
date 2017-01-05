@@ -35,7 +35,7 @@ Commands used:
 ```
 # Configure with default values, no CUDA or OpenCL or Google Cloud
 $ ./configure
-$ bazel build -s --verbose_failures --local_resources 2048,.5,1.0 -c opt --copt=-march=avx --config=cuda //tensorflow/tools/pip_package:build_pip_package
+$ bazel build -s --verbose_failures --local_resources 2048,.5,1.0 -c opt --copt=-mavx --config=cuda --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" //tensorflow/tools/pip_package:build_pip_package
 
 
 $ bazel-bin/tensorflow/tools/pip_package/build_pip_package $(pwd)/tensorflow_pkg
@@ -46,7 +46,8 @@ Note:
  * *--local_resources 2048,.5,1.0*: limits the resource used by the building process.
  * *-s*: to output all bazel commands.
  * *--config=cuda*: add support for GPU computing with Nvidia CUDA (feature previous enabled with `./configure`)
- * *--copt=-march=avx*: supported set of instructions for 2500k
+ * *--copt=-mavx*: supported set of instructions for 2500k
+ * *--cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0"*: force the compiler to use the same api of binary package (current version 0.12 is compiled with gcc4, so if you have gcc5 you need this option).
 
 ## Install the package
 
@@ -92,5 +93,8 @@ Note:
 ## Compile Tensorflow CC libs
 
 ```bash
-bazel build -c opt --config=cuda //tensorflow:libtensorflow_cc.so
+$ bazel build -c opt --config=cuda --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" //tensorflow:libtensorflow_cc.so
 ```
+
+Note:
+ * *--cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0"*: force the compiler to use the same api of binary package.
