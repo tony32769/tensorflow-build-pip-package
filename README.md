@@ -33,11 +33,17 @@ Building reference on the (official webpage)[https://www.tensorflow.org/versions
 
 Commands used:
 ```
+##
 # Configure with default values, no CUDA or OpenCL or Google Cloud
 $ ./configure
-$ bazel build -s --verbose_failures --local_resources 2048,.5,1.0 -c opt --copt=-mavx --config=cuda --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" //tensorflow/tools/pip_package:build_pip_package
-
-
+##
+# Linux config
+$ bazel build --verbose_failures --local_resources 2048,.5,1.0 -c opt --copt=-mavx --config=cuda --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" //tensorflow/tools/pip_package:build_pip_package
+##
+# MacOs config
+$ bazel build --verbose_failures --local_resources 2048,.5,1.0 -c opt --copt=-mavx2 --copt=-msse4.2 --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" //tensorflow/tools/pip_package:build_pip_package
+##
+# Create the package
 $ bazel-bin/tensorflow/tools/pip_package/build_pip_package $(pwd)/tensorflow_pkg
 ```
 
@@ -47,6 +53,7 @@ Note:
  * *-s*: to output all bazel commands.
  * *--config=cuda*: add support for GPU computing with Nvidia CUDA (feature previous enabled with `./configure`)
  * *--copt=-mavx*: supported set of instructions for 2500k
+ * *--copt=-mavx2 --copt=-msse4.2*: supported set of instructions for i5-4258U
  * *--cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0"*: force the compiler to use the same ABI of binary package (current version 0.12 is compiled with gcc4, so if you have gcc5 you need this option).
 
 ## Install the package
