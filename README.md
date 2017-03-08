@@ -71,6 +71,22 @@ directly inside *.virtualenvs* folder:
 $ pyvenv TensorFlow
 ```
 
+## Note about matplotlib
+
+If you can't render without a screen you will have this error:
+
+```bash
+_tkinter.TclError: no display name and no $DISPLAY environment variable
+```
+
+To solve this error do this:
+
+```bash
+python -c "import matplotlib; print(matplotlib.matplotlib_fname())"
+```
+
+Modify *matplotlibrc* changing **backend      : tkagg** in **backend : Agg**.
+
 ## Build a new OP with source
 
 Copy your C/C++ code inside the folder `tensorflow/core/user_ops`. If the file added is `example.cpp` you have
