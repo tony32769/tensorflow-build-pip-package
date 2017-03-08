@@ -52,8 +52,8 @@ Note:
  * *--local_resources 2048,.5,1.0*: limits the resource used by the building process.
  * *-s*: to output all bazel commands.
  * *--config=cuda*: add support for GPU computing with Nvidia CUDA (feature previous enabled with `./configure`)
- * *--copt=-mavx*: supported set of instructions for 2500k
- * *--copt=-mavx2 --copt=-msse4.2*: supported set of instructions for i5-4258U
+ * *--copt=-mavx --copt=-mavx2 --copt=-mfma*: supported set of instructions for 2500k
+ * *--copt=-mavx2 --copt=-msse4.2* --copt=-mfma: supported set of instructions for i5-4258U
  * *--cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0"*: force the compiler to use the same ABI of binary package (current version 0.12 is compiled with gcc4, so if you have gcc5 you need this option).
 
 ## Install the package
@@ -70,6 +70,22 @@ directly inside *.virtualenvs* folder:
 ```
 $ pyvenv TensorFlow
 ```
+
+## Note about matplotlib
+
+If you can't render without a screen you will have this error:
+
+```bash
+_tkinter.TclError: no display name and no $DISPLAY environment variable
+```
+
+To solve this error do this:
+
+```bash
+python -c "import matplotlib; print(matplotlib.matplotlib_fname())"
+```
+
+Modify *matplotlibrc* changing **backend      : tkagg** in **backend : Agg**.
 
 ## Build a new OP with source
 
